@@ -2,7 +2,15 @@ import { hashPassword } from "../../utils/bcrypt";
 import { EditableUserProperties, User, UserId, UserModel } from "./types";
 import { v4 as uuid } from "uuid";
 
-const users: User[] = [];
+const users: User[] = [{
+    name: 'Esteban',
+    lastname: 'dos Santos Mello',
+    email: 'esteban2santos@gmail.com',
+    password: '$2b$10$2Fjsbr3lngBvg0WHfXYhPuUiY7ToAnhphuOsFyUhbmcIlR2aqx8tu', //Asdasdasd123
+    id: '059bd21c-bc7e-4d05-ad16-e55b42242da7',
+    verifiedUser: true,
+    verificationUserCode: undefined
+  }];
 
 const editableUserProperties: (keyof EditableUserProperties)[] = [
   "password",
