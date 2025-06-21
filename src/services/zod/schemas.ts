@@ -15,7 +15,7 @@ const ProductSchema = z.object({
 
 const SignupSchema = z.object({
   name: z.string().regex(/^[\p{L}]{3,30}$/u, 'El nombre debe contener entre 3 y 30 letras'),
-  lastname : z.string().regex(/^[\p{L}]{3,30}$/u, 'El apellido debe contener entre 3 y 30 letras'),
+  lastname : z.string().regex(/^[\p{L} ]{3,30}$/u, 'El apellido debe contener entre 3 y 30 letras'),
   email: z.string().regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email format invalid'),
   password: z.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/, 'La contraseña debe contener al menos 12 caracteres, incluyendo mayúscula, minúscula y al menos un número')
 });

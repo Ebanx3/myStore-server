@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { RequestWithData, ServerResponse } from "../../types";
 import { UserModel } from "../../utils/factoryPattern";
 import { createVerificationCode } from "../../utils/createVerificationCode";
-import { sendVerificationCodeToEmail } from "../../services/resend";
+import { sendVerificationCodeToEmail } from "../../services/nodemailer";
 import { comparePassword } from "../../utils/bcrypt";
 import { createToken } from "../../utils/jwt";
 import { envs } from "../../utils/envVariables";
@@ -73,6 +73,7 @@ class UserController {
     res: Response<ServerResponse>
   ) => {
     try {
+      console.log(req.body)
       const validatedData = req.validatedData;
       const user = await UserModel.getModel().getByEmail(validatedData.email);
 
