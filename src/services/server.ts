@@ -2,8 +2,10 @@ import { envs } from "../utils/envVariables.ts";
 
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import router from "./router.ts";
+import { requestLog} from "./middlewares/requestLog.ts";
 
 class Server {
   public static instance: Server;
@@ -11,6 +13,7 @@ class Server {
   private constructor() {
     const app = express();
     app.use(express.json());
+    app.use(cookieParser());
     app.use(express.urlencoded({ extended: true }));
     app.use(
       cors({
@@ -19,13 +22,15 @@ class Server {
         methods: ["GET", "POST"],
       })
     );
-    app.use("/api", router);
+    app.use(requestLog)
+    app.use("/api",router);
     app.use((_req, res) => {
       res.send("Undefined path");
     });
-    app.listen(envs.PORT, () =>
-      console.log("Server up! Listening at port", envs.PORT)
-    );
+    app.listen(envs.PORT, () => {
+      console.clear();
+      console.log("Server up! Listening at port", envs.PORT);
+    });
   }
 
   public static getInstance() {

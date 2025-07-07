@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { envs } from "./envVariables";
 import { User } from "../entities/users/types";
 
-const createToken = ({ name, lastname, id, email }: Omit<User, 'password' | 'verifiedUser'>) => {
+const createToken = ({ name, lastname, id, email }: Omit<User, 'password' | 'verifiedUser' | 'actualPlan'>) => {
   try {
     return jwt.sign(
       {

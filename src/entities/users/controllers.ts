@@ -73,7 +73,6 @@ class UserController {
     res: Response<ServerResponse>
   ) => {
     try {
-      console.log(req.body)
       const validatedData = req.validatedData;
       const user = await UserModel.getModel().getByEmail(validatedData.email);
 

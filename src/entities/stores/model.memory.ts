@@ -15,7 +15,7 @@ class MemoryModel implements StoreModel {
 
   create = async (name: string, ownerId: string, maxProducts: number = 50) => {
     const index = stores.findIndex((store) => store.name === name);
-    if (index < 0) return "StoreName already used";
+    if (index >= 0) return "StoreName already used";
 
     const newStore: Store = {
       id: uuid(),
@@ -26,7 +26,9 @@ class MemoryModel implements StoreModel {
       maxProducts,
       currentProducts: 0,
     };
+
     stores.push(newStore);
+
     return newStore.id;
   };
 
@@ -37,9 +39,9 @@ class MemoryModel implements StoreModel {
   };
 
   getStoresByUserId = (userId: UserId) => {
-    return new Promise<Store[]>((resolve) => [
-      resolve(stores.filter((store) => store.ownerId === userId)),
-    ]);
+    return new Promise<Store[]>((resolve) => {
+      resolve(stores.filter((store) => store.ownerId === userId));
+    });
   };
 
   changeStoreStatus = (storeName: string) => {

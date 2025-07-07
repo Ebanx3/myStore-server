@@ -42,11 +42,10 @@ class StoresController {
   static getStoresByUserId = async ( req: RequestWithData,
     res: Response<ServerResponse>) => {
     try{
-      console.log('llego una peticin')
       const userId = req.user!.id;
-      console.log('userId',userId)
-      const stores = await StoreModel.getModel().getStoresByUserId(userId);
 
+      const stores = await StoreModel.getModel().getStoresByUserId(userId);
+      console.log(stores)
       res.status(200).json({
         success:true,
         message:"Stores obtained",

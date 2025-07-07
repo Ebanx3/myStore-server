@@ -12,6 +12,7 @@ export const Authenticate = async (
 ) => {
   try {
     const token = req.cookies[envs.TOKEN_NAME];
+
     if (!token) {
       res.status(401).json(UnauthorizedJson);
       return;

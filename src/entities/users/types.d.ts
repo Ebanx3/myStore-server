@@ -8,7 +8,12 @@ type User = {
   password: string;
   verifiedUser: boolean;
   verificationUserCode?: string;
+  actualPlan: 'free' | 'Plus' | 'Max';
+  lastPaymentDate?: string;
+  payments?: Payment[];
 };
+
+type UserBeforeInitiation = Omit<User, "id" | "verifiedUser" | 'actualPlan' >
 
 type EditableUserProperties = {
   email?:string;
@@ -28,8 +33,7 @@ export interface UserModel {
    * @returns A promise that resolves to the unique user ID (`string`) if successful, or {error} if the operation fails.
    */
   signup: (
-    newUser: Omit<User, "id" | "verifiedUser">
-  ) => Promise<string | { error: string }>;
+    newUser: UserBeforeInitiation ) => Promise<string | { error: string }>;
 
   /**
    * Retrieves a user by their email address.
