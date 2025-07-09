@@ -96,17 +96,27 @@ class UserController {
         return;
       }
 
-      if(!user.verifiedUser){
-        res.status(400).json({success:false, message:"Email no verificado. Ingresa a tu email para hacerlo."});
+      if (!user.verifiedUser) {
+        res
+          .status(400)
+          .json({
+            success: false,
+            message: "Email no verificado. Ingresa a tu email para hacerlo.",
+          });
         return;
       }
 
       const { id, email, name, lastname } = user;
 
-      const token = await createToken({id, email, name, lastname});
+      const token = await createToken({ id, email, name, lastname });
 
       res
-        .cookie(envs.TOKEN_NAME, token, {httpOnly:true, sameSite:'strict', maxAge:15 * 24 * 60 * 60 * 1000, secure:true})
+        .cookie(envs.TOKEN_NAME, token, {
+          httpOnly: true,
+          sameSite: "strict",
+          maxAge: 15 * 24 * 60 * 60 * 1000,
+          secure: true,
+        })
         .status(200)
         .json({
           success: true,
@@ -117,6 +127,16 @@ class UserController {
       console.log(error);
       res.status(500).json({ success: false, message: "Server error" });
     }
+  };
+
+  static logout = async (
+    req: RequestWithData,
+    res: Response<ServerResponse>
+  ) => {
+    res
+      .clearCookie(envs.TOKEN_NAME,{httpOnly:true, secure:true, sameSite:'strict'})
+      .status(200)
+      .json({ success: true, message: "Logout correcto" });
   };
 }
 

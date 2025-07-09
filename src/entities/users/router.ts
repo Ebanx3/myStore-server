@@ -7,5 +7,6 @@ const router = Router();
 router.post("/signup", validateBodyMiddleware("signup"), UserController.signup);
 router.post("/login", validateBodyMiddleware("login"), UserController.login);
 router.get("/verifyEmail/:verificationCode", UserController.verifiyEmail);
+router.get('/logout', UserController.logout);
 
 export default router;

@@ -44,42 +44,64 @@ class MemoryModel implements StoreModel {
     });
   };
 
-  changeStoreStatus = (storeName: string) => {
-    return new Promise<boolean>((resolve) => {
+  changeStoreStatus = (userId:UserId, storeName: string) => {
+    return new Promise<boolean>((resolve,reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      index < 0 ? resolve(false) : resolve(true);
+      if(index < 0) reject(false) 
+
+      if(stores[index].ownerId != userId) reject(false);
+      
+      stores[index].statusActive = !stores[index].statusActive;
+      resolve(true);
     });
   };
 
-  changeMaxProducts = (storeName: string, newMaxProducts: number) => {
-    return new Promise<boolean>((resolve) => {
+  changeMaxProducts = (userId:UserId, storeName: string, newMaxProducts: number) => {
+    return new Promise<boolean>((resolve,reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if (index < 0) resolve(false);
+      if(index < 0) reject(false) 
+
+      if(stores[index].ownerId != userId) reject(false);
 
       stores[index].maxProducts = newMaxProducts;
       resolve(true);
     });
   };
 
-  changeCurrentProducts = (storeName: string, newCurrentProducts: number) => {
-    return new Promise<boolean>((resolve) => {
+  changeCurrentProducts = (userId:UserId, storeName: string, newCurrentProducts: number) => {
+    return new Promise<boolean>((resolve,reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if (index < 0) resolve(false);
+      if(index < 0) reject(false) 
+
+      if(stores[index].ownerId != userId) reject(false);
 
       stores[index].currentProducts = newCurrentProducts;
       resolve(true);
     });
   };
 
-  delete = (storeName: string) => {
-    return new Promise<boolean>((resolve) => {
+  delete = (userId:UserId, storeName: string) => {
+    return new Promise<boolean>((resolve,reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if (index < 0) resolve(false);
+      if(index < 0) reject(false) 
+
+      if(stores[index].ownerId != userId) reject(false);
 
       stores.splice(index, 1);
       resolve(true);
     });
   };
+
+  storeIsMine = (userId: UserId, storeName: string) => {
+    return new Promise<boolean>((resolve,reject) => {
+      console.log(stores)
+      const index = stores.findIndex((store) => store.name === storeName);
+      if(index < 0) reject(false) 
+
+      if(stores[index].ownerId != userId) reject(false);
+
+      resolve(true);
+    })};
 }
 
 export { MemoryModel };
