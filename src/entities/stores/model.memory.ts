@@ -93,14 +93,14 @@ class MemoryModel implements StoreModel {
   };
 
   storeIsMine = (userId: UserId, storeName: string) => {
-    return new Promise<boolean>((resolve,reject) => {
+    return new Promise<Store | null>((resolve,reject) => {
       console.log(stores)
       const index = stores.findIndex((store) => store.name === storeName);
-      if(index < 0) reject(false) 
+      if(index < 0) reject(null) 
 
-      if(stores[index].ownerId != userId) reject(false);
+      if(stores[index].ownerId != userId) reject(null);
 
-      resolve(true);
+      resolve(stores[index]);
     })};
 }
 

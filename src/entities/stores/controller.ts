@@ -88,11 +88,12 @@ class StoresController {
       const userId = req.user!.id;
       const { storeName } = req.params;
 
-      const storeStatusChanged = await StoreModel.getModel().storeIsMine(userId, storeName);
+      const store = await StoreModel.getModel().storeIsMine(userId, storeName);
 
-      if(!storeStatusChanged){
+      if(store === null){
         res.status(400).json({
-          success:false,message:'Store is not mine'
+          success:false,
+          message:'Store is not mine'
         });
         return;
       }
@@ -100,6 +101,7 @@ class StoresController {
       res.status(200).json({
         success: true,
         message: "Is Mine!",
+        data:store
       })
 
     } catch (error) {

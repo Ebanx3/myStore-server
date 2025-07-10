@@ -77,5 +77,5 @@ interface StoreModel {
    * @returns A promise that resolves to `true` if the deletion was successful, otherwise `false`.
    */
   delete: (userId: UserId, storeName: string) => Promise<boolean>;
-  storeIsMine: (userId: UserId, storeName: string) => Promise<boolean>;
+  storeIsMine: (userId: UserId, storeName: string) => Promise<Store | null>;
 }
