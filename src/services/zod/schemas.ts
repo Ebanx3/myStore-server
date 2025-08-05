@@ -10,7 +10,9 @@ const ProductSchema = z.object({
   details: z.string().min(5, "Detalles debe contener al menos 5 caracteres"),
   price: z.number().positive("El precio debe ser mayor a 0"),
   stock: z.number().int().nonnegative("El stock no puede ser negativo"),
-  statusVisible: z.boolean().optional().default(true)
+  statusVisible: z.boolean(),
+  picturesUrl : z.array(z.string()).min(1).max(5),
+  storeId: z.string()
 });
 
 const SignupSchema = z.object({

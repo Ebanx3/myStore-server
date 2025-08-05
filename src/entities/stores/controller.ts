@@ -63,7 +63,7 @@ class StoresController {
       const userId = req.user!.id;
       const { storeName } = req.params;
 
-      const storeStatusChanged = await StoreModel.getModel().changeStoreStatus(userId, storeName);
+      const storeStatusChanged = await StoreModel.getModel().changeStoreStatus(userId, storeName.replaceAll("_"," "));
 
       if(!storeStatusChanged){
         res.status(400).json({

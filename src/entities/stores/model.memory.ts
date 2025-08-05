@@ -44,48 +44,65 @@ class MemoryModel implements StoreModel {
     });
   };
 
-  changeStoreStatus = (userId:UserId, storeName: string) => {
-    return new Promise<boolean>((resolve,reject) => {
+  getStoreByStoreName = (storeName: string) => {
+    return new Promise<Store | null>((resolve) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if(index < 0) reject(false) 
+      if (index < 0) resolve(null);
 
-      if(stores[index].ownerId != userId) reject(false);
-      
+      resolve(stores[index]);
+    });
+  };
+
+  changeStoreStatus = (userId: UserId, storeName: string) => {
+    return new Promise<boolean>((resolve, reject) => {
+      const index = stores.findIndex((store) => store.name === storeName);
+      if (index < 0) reject(false);
+
+      if (stores[index].ownerId != userId) reject(false);
+
       stores[index].statusActive = !stores[index].statusActive;
       resolve(true);
     });
   };
 
-  changeMaxProducts = (userId:UserId, storeName: string, newMaxProducts: number) => {
-    return new Promise<boolean>((resolve,reject) => {
+  changeMaxProducts = (
+    userId: UserId,
+    storeName: string,
+    newMaxProducts: number
+  ) => {
+    return new Promise<boolean>((resolve, reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if(index < 0) reject(false) 
+      if (index < 0) reject(false);
 
-      if(stores[index].ownerId != userId) reject(false);
+      if (stores[index].ownerId != userId) reject(false);
 
       stores[index].maxProducts = newMaxProducts;
       resolve(true);
     });
   };
 
-  changeCurrentProducts = (userId:UserId, storeName: string, newCurrentProducts: number) => {
-    return new Promise<boolean>((resolve,reject) => {
+  changeCurrentProducts = (
+    userId: UserId,
+    storeName: string,
+    newCurrentProducts: number
+  ) => {
+    return new Promise<boolean>((resolve, reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if(index < 0) reject(false) 
+      if (index < 0) reject(false);
 
-      if(stores[index].ownerId != userId) reject(false);
+      if (stores[index].ownerId != userId) reject(false);
 
       stores[index].currentProducts = newCurrentProducts;
       resolve(true);
     });
   };
 
-  delete = (userId:UserId, storeName: string) => {
-    return new Promise<boolean>((resolve,reject) => {
+  delete = (userId: UserId, storeName: string) => {
+    return new Promise<boolean>((resolve, reject) => {
       const index = stores.findIndex((store) => store.name === storeName);
-      if(index < 0) reject(false) 
+      if (index < 0) reject(false);
 
-      if(stores[index].ownerId != userId) reject(false);
+      if (stores[index].ownerId != userId) reject(false);
 
       stores.splice(index, 1);
       resolve(true);
@@ -93,15 +110,16 @@ class MemoryModel implements StoreModel {
   };
 
   storeIsMine = (userId: UserId, storeName: string) => {
-    return new Promise<Store | null>((resolve,reject) => {
-      console.log(stores)
+    return new Promise<Store | null>((resolve, reject) => {
+      console.log(stores);
       const index = stores.findIndex((store) => store.name === storeName);
-      if(index < 0) reject(null) 
+      if (index < 0) reject(null);
 
-      if(stores[index].ownerId != userId) reject(null);
+      if (stores[index].ownerId != userId) reject(null);
 
       resolve(stores[index]);
-    })};
+    });
+  };
 }
 
 export { MemoryModel };

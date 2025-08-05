@@ -40,6 +40,7 @@ interface StoreModel {
    */
   getStoresByUserId: (userId: UserId) => Promise<Store[]>;
 
+  getStoreByStoreName : (storeName:string)  => Promise<Store | null>;
   /**
    * Changes the status of a store.
    * @param storeName - The name of the store whose status will be updated.

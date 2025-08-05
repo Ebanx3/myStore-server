@@ -106,7 +106,7 @@ class UserController {
         return;
       }
 
-      const { id, email, name, lastname } = user;
+      const { id, email, name, lastname, actualPlan, lastPaymentDate } = user;
 
       const token = await createToken({ id, email, name, lastname });
 
@@ -121,7 +121,7 @@ class UserController {
         .json({
           success: true,
           message: "Logged in correctly",
-          data: { id, email, name, lastname },
+          data: { id, email, name, lastname, actualPlan, lastPaymentDate },
         });
     } catch (error) {
       console.log(error);

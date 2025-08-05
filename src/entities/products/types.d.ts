@@ -7,6 +7,7 @@ type Product = {
   name: string;
   details: string;
   price: number;
+  picturesUrl: string[];
   stock: number;
   statusVisible: boolean;
   storeId: StoreId;
@@ -15,6 +16,7 @@ type Product = {
 type EditableProductProperties = {
   name?: string;
   details?: string;
+  picturesUrl?:string[];
   price?: number;
   stock?: number;
   statusVisible?: boolean;
