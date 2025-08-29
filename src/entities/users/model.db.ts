@@ -1,4 +1,4 @@
-import { User, UserModel } from "./types";
+import { EditableUserProperties, User, UserBeforeInitiation, UserId, UserModel } from "./types";
 
 class DBRenderModel implements UserModel {
   private static instance: DBRenderModel;
@@ -9,8 +9,10 @@ class DBRenderModel implements UserModel {
     return DBRenderModel.instance;
   }
 
-  signup: (newUser: Omit<User, "id" | "verifiedUser">) => Promise<string>;
+  signup: (newUser: UserBeforeInitiation) => Promise<string>;
   getByEmail: (email: string) => Promise<User | null>;
+  verifyAccount: (verificationCode: string) => Promise<string | { error: string; }>;
+  updateUser: ({ userId, newValues }: { userId: UserId; newValues: EditableUserProperties; }) => Promise<boolean>;
 }
 
 export { DBRenderModel };

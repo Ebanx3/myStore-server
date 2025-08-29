@@ -12,6 +12,9 @@ import { UserModel } from "../entities/users/types";
 import { MemoryModel as MemoryUser } from "../entities/users/model.memory";
 import { DBRenderModel as DBRenderUser } from "../entities/users/model.db";
 
+import { MessageModel } from "../entities/messages/types";
+import { MemoryModel as MemoryMessage } from "../entities/messages/model.memory";
+
 class ProductsModelsFactory {
   static getModel = (): ProductModel => {
     if (!envs.DB_URL) return MemoryProducts.getInstance();
@@ -33,8 +36,17 @@ class UserModelFactory {
   };
 }
 
+class MessageModelFactory {
+  static getModel = (): MessageModel => {
+     return MemoryMessage.getInstance();
+    // if (!envs.DB_URL) return MemoryMessage.getInstance();
+    // return DBRenderStore.getInstance();
+  };
+}
+
 export {
   ProductsModelsFactory as ProductsModel,
   StoreModelsFactory as StoreModel,
   UserModelFactory as UserModel,
+  MessageModelFactory as MessageModel
 };

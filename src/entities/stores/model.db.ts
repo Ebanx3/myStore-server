@@ -18,15 +18,19 @@ class DBRenderModel implements StoreModel {
   checkIfStoreExists: (storeId: StoreId) => Promise<boolean>;
   getStoresByUserId: (userId: UserId) => Promise<Store[]>;
   changeCurrentProducts: (
+    userId:UserId,
     storeName: string,
     newCurrentProducts: number
   ) => Promise<boolean>;
   changeMaxProducts: (
+    userId:UserId,
     storeName: string,
     newMaxProducts: number
   ) => Promise<boolean>;
   changeStoreStatus: (storeName: string) => Promise<boolean>;
   delete: (storeName: string) => Promise<boolean>;
+  getStoreByStoreName: (storeName: string) => Promise<Store | null>;
+  storeIsMine: (userId: UserId, storeName: string) => Promise<Store | null>;
 }
 
 export { DBRenderModel };

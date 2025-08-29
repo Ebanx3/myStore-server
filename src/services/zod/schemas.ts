@@ -15,6 +15,11 @@ const ProductSchema = z.object({
   storeId: z.string()
 });
 
+const MessageSchema = z.object({
+  productId: z.string(),
+  content: z.string(),
+});
+
 const SignupSchema = z.object({
   name: z.string().regex(/^[\p{L}]{3,30}$/u, 'El nombre debe contener entre 3 y 30 letras'),
   lastname : z.string().regex(/^[\p{L} ]{3,30}$/u, 'El apellido debe contener entre 3 y 30 letras'),
@@ -27,9 +32,11 @@ const LoginSchema = z.object({
   password: z.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{12,}$/, 'La contraseña debe contener al menos 12 caracteres, incluyendo mayúscula, minúscula y al menos un número')
 })
 
+
 export const Schemas = {
   addProduct: ProductSchema,
   createStore: StoreSchema,
   signup: SignupSchema,
-  login: LoginSchema
+  login: LoginSchema,
+  createMessage: MessageSchema
 };

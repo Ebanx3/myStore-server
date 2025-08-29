@@ -1,6 +1,6 @@
 import { Schemas } from "./schemas";
 
-export type SchemasNames = 'addProduct' | `createStore` | 'signup' | 'login'
+export type SchemasNames = 'addProduct' | `createStore` | 'signup' | 'login' | 'createMessage'
 
 export const ValidateBody = async ({body, schema}:{body: object, schema: SchemasNames}):Promise<any> => {
   try {
